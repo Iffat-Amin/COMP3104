@@ -1,0 +1,29 @@
+name: DevOps Lab Exercise
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events for both the "main" and "dep-inclusions" branches
+  push:
+    branches: 
+      - main
+      - dep-inclusions  # Add dep-inclusions branch here
+  pull_request:
+    branches: 
+      - main
+      - dep-inclusions  # Add dep-inclusions branch here
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+#      - run: npm ci
+      - run: npm install
+      - run: npm run build --if-present
+      - run: npm test
